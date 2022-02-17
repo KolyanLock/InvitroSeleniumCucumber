@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -136,5 +137,10 @@ public class InvitroRadiologyPageSteps {
                 .checkAndClickAttentionCloseBtn()
                 .checkAndClickCityConfirmBtn()
                 .goToTopMenuItem(itemTitle);
+    }
+
+    @After
+    public void quit_driver() {
+        invitroRadiologyPage.getDriver().quit();
     }
 }

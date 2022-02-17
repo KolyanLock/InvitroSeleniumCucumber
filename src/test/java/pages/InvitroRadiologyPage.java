@@ -9,14 +9,14 @@ import java.util.regex.Pattern;
 
 public class InvitroRadiologyPage {
 
-    private WebDriver webDriver;
+    private WebDriver driver;
 
     public InvitroRadiologyPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        this.driver = webDriver;
     }
 
-    public WebDriver getWebDriver() {
-        return webDriver;
+    public WebDriver getDriver() {
+        return driver;
     }
 
     private String productPrice;
@@ -66,12 +66,12 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage open() {
-        webDriver.get("https://www.invitro.ru/radiology/");
+        driver.get("https://www.invitro.ru/radiology/");
         return this;
     }
 
     public InvitroRadiologyPage checkAndClickAttentionCloseBtn() {
-        WebElement attentionCloseBtn = webDriver.findElement(this.attentionCloseBtnBy);
+        WebElement attentionCloseBtn = driver.findElement(this.attentionCloseBtnBy);
         if (attentionCloseBtn.isDisplayed()) {
             attentionCloseBtn.click();
         }
@@ -79,7 +79,7 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage checkAndClickCityConfirmBtn() {
-        WebElement cityConfirmBtn = webDriver.findElement(cityConfirmBtnBy);
+        WebElement cityConfirmBtn = driver.findElement(cityConfirmBtnBy);
         if (cityConfirmBtn.isDisplayed()) {
             cityConfirmBtn.click();
         }
@@ -87,19 +87,19 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage checkAndClickCityChangeBtn() {
-        WebElement cityConfirmBtn = webDriver.findElement(cityChangeBtnBy);
+        WebElement cityConfirmBtn = driver.findElement(cityChangeBtnBy);
         if (cityConfirmBtn.isDisplayed()) {
             cityConfirmBtn.click();
         } else {
-            webDriver.findElement(citySelectArrowBtnBy).click();
-            webDriver.findElement(this.cityChangeBtnBy).click();
+            driver.findElement(citySelectArrowBtnBy).click();
+            driver.findElement(this.cityChangeBtnBy).click();
         }
         return this;
     }
 
     public InvitroRadiologyPage checkAndClickSubscriptionCloseBtn() {
         try {
-            WebElement cityConfirmBtn = webDriver.findElement(subscriptionCloseBtnBy);
+            WebElement cityConfirmBtn = driver.findElement(subscriptionCloseBtnBy);
             if (cityConfirmBtn.isDisplayed()) {
                 cityConfirmBtn.click();
             }
@@ -110,7 +110,7 @@ public class InvitroRadiologyPage {
 
     public InvitroRadiologyPage checkAndClickMonitoringCloseBtn() {
         try {
-            WebElement cityConfirmBtn = webDriver.findElement(monitoringCloseBtnBy);
+            WebElement cityConfirmBtn = driver.findElement(monitoringCloseBtnBy);
             if (cityConfirmBtn.isDisplayed()) {
                 cityConfirmBtn.click();
             }
@@ -120,12 +120,12 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage clickAllTopMenu() {
-        int numberOfElements = webDriver.findElements(topMainMenuElementsBys).size();
+        int numberOfElements = driver.findElements(topMainMenuElementsBys).size();
         for (int i = 0; i < numberOfElements; i++) {
             checkAndClickAttentionCloseBtn();
             checkAndClickCityConfirmBtn();
 
-            webDriver.findElements(topMainMenuElementsBys)
+            driver.findElements(topMainMenuElementsBys)
                     .get(i)
                     .click();
         }
@@ -133,18 +133,18 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage clickAllMoreMenu() {
-        int numberOfElements = webDriver.findElements(moreMenuElementsBys).size();
+        int numberOfElements = driver.findElements(moreMenuElementsBys).size();
         for (int i = 0; i < numberOfElements; i++) {
             checkAndClickAttentionCloseBtn();
             checkAndClickCityConfirmBtn();
 
-            WebElement moreMenuBlock = webDriver.findElement(moreMenuBlockBy);
+            WebElement moreMenuBlock = driver.findElement(moreMenuBlockBy);
 
-            new Actions(webDriver)
+            new Actions(driver)
                     .moveToElement(moreMenuBlock, 2, 2)
                     .perform();
 
-            webDriver.findElements(moreMenuElementsBys)
+            driver.findElements(moreMenuElementsBys)
                     .get(i)
                     .click();
         }
@@ -152,9 +152,9 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage clickAllLeftScrollMenu() {
-        int numberOfElements = webDriver.findElements(leftScrollMenuItemsBys).size();
+        int numberOfElements = driver.findElements(leftScrollMenuItemsBys).size();
         for (int i = 0; i < numberOfElements; i++) {
-            webDriver
+            driver
                     .findElements(leftScrollMenuItemsBys)
                     .get(i)
                     .click();
@@ -163,18 +163,18 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage inputCityIntoSearchField(String city) {
-        WebElement changeCitySearchInput = webDriver.findElement(this.changeCitySearchInputBy);
+        WebElement changeCitySearchInput = driver.findElement(this.changeCitySearchInputBy);
         changeCitySearchInput.sendKeys(city);
         changeCitySearchInput.sendKeys(" ", Keys.BACK_SPACE);
         return this;
     }
 
     public boolean isCityFounded(String city) {
-        return webDriver.findElement(By.xpath(String.format(selectedCityStr, city))).isDisplayed();
+        return driver.findElement(By.xpath(String.format(selectedCityStr, city))).isDisplayed();
     }
 
     public InvitroRadiologyPage clickOnFoundedCity(String city) {
-        webDriver.findElement(By.xpath(String.format(selectedCityStr, city))).click();
+        driver.findElement(By.xpath(String.format(selectedCityStr, city))).click();
         return this;
     }
 
@@ -182,51 +182,51 @@ public class InvitroRadiologyPage {
         checkAndClickAttentionCloseBtn();
         checkAndClickCityChangeBtn();
 
-        WebElement changeCitySearchInput = webDriver.findElement(this.changeCitySearchInputBy);
+        WebElement changeCitySearchInput = driver.findElement(this.changeCitySearchInputBy);
         changeCitySearchInput.sendKeys(city);
         changeCitySearchInput.sendKeys(" ", Keys.BACK_SPACE);
 
-        WebElement selectedCity = webDriver.findElement(By.xpath(String.format(selectedCityStr, city)));
+        WebElement selectedCity = driver.findElement(By.xpath(String.format(selectedCityStr, city)));
         selectedCity.click();
         return this;
     }
 
     public boolean isCurrentCityCorrect(String city) {
-        WebElement currentCity = webDriver.findElement(this.currentCityBy);
+        WebElement currentCity = driver.findElement(this.currentCityBy);
         return city.equals(currentCity.getText());
     }
 
     public String getCurrentCityBy() {
-        return webDriver.findElement(this.currentCityBy).getText();
+        return driver.findElement(this.currentCityBy).getText();
     }
 
     public InvitroRadiologyPage clickFindResultsBtn() {
-        webDriver.findElement(findResultsBtnBy).click();
+        driver.findElement(findResultsBtnBy).click();
         return this;
     }
 
     public InvitroRadiologyPage clickAnalysisResultsBtn() {
-        webDriver.findElement(analysisResultsBtnBy).click();
+        driver.findElement(analysisResultsBtnBy).click();
         return this;
     }
 
     public boolean isResultsErrorVisible() {
-        return webDriver.findElement(resultsErrorBy).isDisplayed();
+        return driver.findElement(resultsErrorBy).isDisplayed();
     }
 
     public boolean isResultsErrorContainsCorrectText() {
-        String errorText = webDriver.findElement(resultsErrorBy).getText();
+        String errorText = driver.findElement(resultsErrorBy).getText();
         return errorText.equals("Поля Код ИНЗДата рожденияФамилия обязательны для заполнения");
     }
 
     public String getResultsErrorText() {
-        return webDriver.findElement(resultsErrorBy).getText();
+        return driver.findElement(resultsErrorBy).getText();
     }
 
     public boolean isBorderColorRed() {
-        WebElement orderNumberInput = webDriver.findElement(this.orderNumberInputBy);
-        WebElement birthdayInput = webDriver.findElement(this.birthdayInputBy);
-        WebElement lastNameInput = webDriver.findElement(this.lastNameInputBy);
+        WebElement orderNumberInput = driver.findElement(this.orderNumberInputBy);
+        WebElement birthdayInput = driver.findElement(this.birthdayInputBy);
+        WebElement lastNameInput = driver.findElement(this.lastNameInputBy);
 
         return orderNumberInput.getCssValue("border-color").equals("rgb(255, 0, 0)")
                 && birthdayInput.getCssValue("border-color").equals("rgb(255, 0, 0)")
@@ -234,25 +234,25 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage sendINZ(String inz) {
-        webDriver.findElement(this.orderNumberInputBy).sendKeys(inz);
+        driver.findElement(this.orderNumberInputBy).sendKeys(inz);
         return this;
     }
 
     public InvitroRadiologyPage sendBirth(String birth) {
-        WebElement birthdayInput = webDriver.findElement(this.birthdayInputBy);
+        WebElement birthdayInput = driver.findElement(this.birthdayInputBy);
         birthdayInput.sendKeys(Keys.HOME);
-        webDriver.findElement(this.birthdayInputBy).sendKeys(birth);
+        driver.findElement(this.birthdayInputBy).sendKeys(birth);
         birthdayInput.sendKeys(Keys.RETURN);
         return this;
     }
 
     public InvitroRadiologyPage sendLastName(String lastName) {
-        webDriver.findElement(this.lastNameInputBy).sendKeys(lastName);
+        driver.findElement(this.lastNameInputBy).sendKeys(lastName);
         return this;
     }
 
     public InvitroRadiologyPage enterTextIntoSearchHeaderInput(String search) {
-        WebElement searchHeaderInput = webDriver.findElement(searchHeaderInputBy);
+        WebElement searchHeaderInput = driver.findElement(searchHeaderInputBy);
         searchHeaderInput.clear();
         searchHeaderInput.sendKeys(search);
         searchHeaderInput.submit();
@@ -260,7 +260,7 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage goToTopMenuItem(String itemTitle) {
-        webDriver.findElements(topMainMenuElementsBys)
+        driver.findElements(topMainMenuElementsBys)
                 .stream()
                 .filter(element -> element.getText().equals(itemTitle))
                 .findAny()
@@ -269,9 +269,9 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage goToLeftScrollMenuItem(String... itemTitles) {
-        int numberOfElements = webDriver.findElements(leftScrollMenuItemsBys).size();
+        int numberOfElements = driver.findElements(leftScrollMenuItemsBys).size();
         for (int i = 0, j = 0; i < numberOfElements && j < itemTitles.length; i++) {
-            WebElement element = webDriver.findElements(leftScrollMenuItemsBys).get(i);
+            WebElement element = driver.findElements(leftScrollMenuItemsBys).get(i);
             if (element.getText().equals(itemTitles[j])) {
                 element.click();
                 j++;
@@ -281,30 +281,30 @@ public class InvitroRadiologyPage {
     }
 
     public InvitroRadiologyPage rememberProductPrice(int n) {
-        productPrice = pricePattern.matcher(webDriver.findElements(productPriceBys).get(n - 1).getText())
+        productPrice = pricePattern.matcher(driver.findElements(productPriceBys).get(n - 1).getText())
                 .results().findAny().orElseThrow().group();
-        productTag = webDriver.findElements(productTagBys).get(n - 1).getText();
+        productTag = driver.findElements(productTagBys).get(n - 1).getText();
         return this;
     }
 
     public InvitroRadiologyPage addProductToCart(int n) {
         //        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", productToCartBtn);
-        webDriver.findElements(productToCartBtnBys).get(n - 1).click();
+        driver.findElements(productToCartBtnBys).get(n - 1).click();
         return this;
     }
 
     public InvitroRadiologyPage clickOnGoToCartBtn() {
-        webDriver.findElement(goToCartBtnBy).click();
+        driver.findElement(goToCartBtnBy).click();
         return this;
     }
 
     public boolean isProductPriceEquals() {
-        List<WebElement> products = webDriver.findElements(productTegInCartBys);
+        List<WebElement> products = driver.findElements(productTegInCartBys);
 
         for (int i = 0; i < products.size(); i++) {
             WebElement product = products.get(i);
             if (product.getText().equals(productTag)) {
-                productPriceInCart = pricePattern.matcher(webDriver.findElements(productPriceInCartBys).get(i).getText())
+                productPriceInCart = pricePattern.matcher(driver.findElements(productPriceInCartBys).get(i).getText())
                         .results().findAny().orElseThrow().group();
                 break;
             }
